@@ -19,15 +19,52 @@ sist i programmet. Gör gärna en tom rad emellan för att skilja från output o
 Exempel output för input ”29535123p48723487597645723645”:
 Total = 5836428677242*/
 
-
-string userString = Console.ReadLine();
-
-// Bool för att kontrollera om sekvensen innehåller en bokstav
-bool isLetter = false;
-foreach (char c in userString)
+// While-loop med bool för att enkelt testa min kod
+bool closeProgram = false;
+while (!closeProgram)
 {
-	if (Char.IsLetter(c))
-	{
-		isLetter = true;
-	}
+    
+    // Användarens textsträng som söks igenom efter talsekvenser
+    Console.Write("Skriv in valfri sekvens: ");
+    string userString = Console.ReadLine();
+
+    // Bool med IF för att kontrollera att sekvensen ENBART innehåller siffror
+    bool stringDigit = true;
+
+    if (int.TryParse(userString, out int userDigitString))
+    {
+        stringDigit = true;
+    }
+    else
+    {
+        stringDigit = false;
+    }
+
+    // For-loop som söker igenom userString och sparar sekvenser i en Array
+    int index = 1;
+    double[] sequenceArray = new double[index];
+    
+    for (int i = 0; i < userString.Length; i++)
+    {
+        if (stringDigit)
+        {
+            sequenceArray[i] = userString[i];
+            Console.WriteLine(userString[i]);
+            index++;
+        }
+        else
+        {
+            Console.WriteLine("Jag kunde inte hitta en nummersekvens.");
+        }
+    }
+    Console.WriteLine(sequenceArray[index]);
+
+    // ReadLine som styr while-loopens bool.
+    Console.Write("Tryck 0 för att avsluta eller valfritt tecken för att fortsätta: ");
+    string close = Console.ReadLine();
+    Console.WriteLine();
+    if (close == "0")
+    {
+        closeProgram = true;
+    }
 }
