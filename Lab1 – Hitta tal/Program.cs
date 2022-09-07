@@ -20,6 +20,8 @@ Exempel output för input ”29535123p48723487597645723645”:
 Total = 5836428677242*/
 
 // While-loop med bool för att enkelt testa min kod
+using System;
+
 bool closeProgram = false;
 while (!closeProgram)
 {
@@ -28,36 +30,38 @@ while (!closeProgram)
     Console.Write("Skriv in valfri sekvens: ");
     string userString = Console.ReadLine();
 
-    // Bool med IF för att kontrollera att sekvensen ENBART innehåller siffror
-    bool stringDigit = true;
+    // Konverterar anvnändarens sträng till en char array
+    char[] stringToChar = userString.ToCharArray();
+    char[] digits = new char[100];
+    char[] digitsCompare = new char[100];
+    char[] others = new char[100];
 
-    if (int.TryParse(userString, out int userDigitString))
+    // Skriver ut alla siffror i stringToChar
+    for (int i = 0; i < stringToChar.Length; i++)
     {
-        stringDigit = true;
-    }
-    else
-    {
-        stringDigit = false;
-    }
-
-    // For-loop som söker igenom userString och sparar sekvenser i en Array
-    int index = 1;
-    double[] sequenceArray = new double[index];
-    
-    for (int i = 0; i < userString.Length; i++)
-    {
-        if (stringDigit)
+        if (char.IsDigit(stringToChar[i]))
         {
-            sequenceArray[i] = userString[i];
-            Console.WriteLine(userString[i]);
-            index++;
+            digits[i] = stringToChar[i];
+            digitsCompare[i + 1] = stringToChar[i];
         }
         else
         {
-            Console.WriteLine("Jag kunde inte hitta en nummersekvens.");
+            others[i] = stringToChar[i];
         }
     }
-    Console.WriteLine(sequenceArray[index]);
+
+    // Skapar en sträng av alla siffror
+    string numbers = "";
+
+    for (int i = 0; i < stringToChar.Length; i++)
+    {
+        numbers += digits[i].ToString();
+        numbers += others[i].ToString();
+    }
+    Console.WriteLine(numbers);
+
+    // Konverterar char till int
+    //int[] digitsInts = Array.ConvertAll(digits, c => (int)Char.GetNumericValue(c));
 
     // ReadLine som styr while-loopens bool.
     Console.Write("Tryck 0 för att avsluta eller valfritt tecken för att fortsätta: ");
