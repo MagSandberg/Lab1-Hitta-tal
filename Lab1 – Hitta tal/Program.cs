@@ -26,45 +26,61 @@ bool closeProgram = false;
 while (!closeProgram)
 {
     
-    // Användarens textsträng som söks igenom efter talsekvenser
+    // Användarens textsträng
     Console.Write("Skriv in valfri sekvens: ");
-    string userString = Console.ReadLine();
+    string userInput = Console.ReadLine();
+
+    // Används för att ge platshållar-arrayerna rätt index.
+    int inputIndex = 0;
+    foreach (char c in userInput)
+    {
+        inputIndex++;
+    }
 
     // Konverterar anvnändarens sträng till en char array
-    char[] stringToChar = userString.ToCharArray();
-    char[] digits = new char[100];
-    char[] digitsCompare = new char[100];
-    char[] others = new char[100];
+    char[] userInputToChar = userInput.ToCharArray();
 
-    // Skriver ut alla siffror i stringToChar
-    for (int i = 0; i < stringToChar.Length; i++)
+    char[] digits = new char[inputIndex];
+    char[] others = new char[inputIndex];
+
+    // Skriver ut alla siffror i userInputToChar
+    for (int i = 0; i < userInputToChar.Length; i++)
     {
-        if (char.IsDigit(stringToChar[i]))
+        if (char.IsDigit(userInputToChar[i]))
         {
-            digits[i] = stringToChar[i];
-            digitsCompare[i + 1] = stringToChar[i];
+            digits[i] = userInputToChar[i];
         }
         else
         {
-            others[i] = stringToChar[i];
+            others[i] = userInputToChar[i];
         }
     }
 
     // Skapar en sträng av alla siffror
     string numbers = "";
 
-    for (int i = 0; i < stringToChar.Length; i++)
+    for (int i = 0; i < userInputToChar.Length; i++)
     {
         numbers += digits[i].ToString();
         numbers += others[i].ToString();
     }
-    Console.WriteLine(numbers);
+
+    //Array.Sort(digits);
+    //string match = "";
+    //for (int i = 0; i < digits.Length; i++)
+    //{
+    //    if (i = 1)
+    //    {
+
+    //    }
+    //}
+    //Console.WriteLine(match);
 
     // Konverterar char till int
     //int[] digitsInts = Array.ConvertAll(digits, c => (int)Char.GetNumericValue(c));
 
     // ReadLine som styr while-loopens bool.
-    Console.Write("Tryck 0 för att avsluta eller valfritt tecken för att fortsätta: ");
+    Console.Write("\nTryck 0 för att avsluta eller valfritt tecken för att fortsätta: ");
     string close = Console.ReadLine();
     Console.WriteLine();
     if (close == "0")
